@@ -7,7 +7,7 @@ TagManager:
   - TouchField
   - MobileJoystick
   - Lava
-  - FInishLOL
+  - SpawnPoint
   layers:
   - Default
   - TransparentFX

@@ -333,6 +333,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distanceThreshold: 0.15
+  raycastAngle: 0
   isGrounded: 1
 --- !u!1 &1593727746557118
 GameObject:
@@ -527,6 +528,8 @@ GameObject:
   - component: {fileID: 114963311885979670}
   - component: {fileID: 114497868231759342}
   - component: {fileID: 114762042097486276}
+  - component: {fileID: 3815741255132665404}
+  - component: {fileID: 8833719618314497782}
   m_Layer: 0
   m_Name: First Person Controller
   m_TagString: Untagged
@@ -621,6 +624,7 @@ MonoBehaviour:
   runningKey: 304
   anim: {fileID: 0}
   timeToEnd: 0.2
+  die: {fileID: 3815741255132665404}
 --- !u!114 &114497868231759342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -653,6 +657,32 @@ MonoBehaviour:
   headToLower: {fileID: 4490257326247362}
   crouchYHeadPosition: 1
   colliderToLower: {fileID: 136877096903737240}
+--- !u!114 &3815741255132665404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1773623360729482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1993c4965f97bb41a79feefc7493f95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isCanDie: 1
+  _spawnPoint: {fileID: 8833719618314497782}
+--- !u!114 &8833719618314497782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1773623360729482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a382080f20d2b5947bd114ce70a7300c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1963958859065967600
 GameObject:
   m_ObjectHideFlags: 0

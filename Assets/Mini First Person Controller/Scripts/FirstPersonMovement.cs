@@ -23,6 +23,8 @@ public class FirstPersonMovement : MonoBehaviour
     /// <summary> Functions to override movement speed. Will use the last added override. </summary>
     public List<System.Func<float>> speedOverrides = new List<System.Func<float>>();
 
+    [SerializeField] private PlayerDeath die;
+
     void Awake()
     {
         // Get the rigidbody on this.
@@ -49,16 +51,26 @@ public class FirstPersonMovement : MonoBehaviour
             targetMovingSpeed = speedOverrides[speedOverrides.Count - 1]();
         }
 
-        // Get targetVelocity from input.
-        Vector2 targetVelocity = new Vector2(Input.GetAxis("Horizontal") * targetMovingSpeed, Input.GetAxis("Vertical") * targetMovingSpeed);
+        // Получаем направление движения
+        Vector2 inputDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
-        // Apply movement.
-        rigidbody.velocity = transform.rotation * new Vector3(targetVelocity.x, rigidbody.velocity.y, targetVelocity.y);
-        if (transform.position.y < -15)
+        // Если есть движение, нормализуем направление
+        if (inputDirection.magnitude > 1)
         {
-            Die();
+            inputDirection.Normalize();
+        }
+
+        // Применяем движение
+        Vector3 moveDirection = transform.rotation * new Vector3(inputDirection.x, 0, inputDirection.y) * targetMovingSpeed;
+        rigidbody.velocity = new Vector3(moveDirection.x, rigidbody.velocity.y, moveDirection.z);
+
+        // Проверка на падение
+        if (transform.position.y < -7)
+        {
+            die.Die();
         }
     }
+
 
     private IEnumerator PlayHitAnimation()
     {
@@ -75,16 +87,12 @@ public class FirstPersonMovement : MonoBehaviour
         anim.SetBool("Run", isMoving);
     }
 
-    private void Die()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Lava"))
         {
-            Die();
+            die.DieLava();
         }
     }
 }
