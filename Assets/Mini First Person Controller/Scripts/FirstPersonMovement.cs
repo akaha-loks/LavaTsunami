@@ -87,7 +87,6 @@ public class FirstPersonMovement : MonoBehaviour
         anim.SetBool("Run", isMoving);
     }
 
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Lava"))
