@@ -1,27 +1,39 @@
-﻿    using UnityEngine;
+﻿using UnityEngine;
 
-    [ExecuteInEditMode]
-    public class GroundCheck : MonoBehaviour
+[ExecuteInEditMode]
+public class GroundCheck : MonoBehaviour
+{
+    [Tooltip("Whether this transform is grounded now.")]
+    public bool isGrounded = true;
+
+    [Tooltip("Offset from the object to start the raycast.")]
+    public float raycastOffset = 0.1f;
+
+    [Tooltip("Raycast distance to check for the ground.")]
+    public float raycastDistance = 0.2f;
+
+    [Tooltip("Layers considered as ground.")]
+    public LayerMask groundLayer;
+
+    /// <summary>
+    /// Called when the ground is touched again.
+    /// </summary>
+    public event System.Action Grounded;
+
+    void Update()
     {
-        [Tooltip("Whether this transform is grounded now.")]
-        public bool isGrounded = true;
+        bool wasGrounded = isGrounded;
+        isGrounded = Physics.Raycast(transform.position + Vector3.up * raycastOffset, Vector3.down, raycastDistance, groundLayer);
 
-        /// <summary>
-        /// Called when the ground is touched again.
-        /// </summary>
-        public event System.Action Grounded;
-
-    void OnTriggerEnter(Collider other)
-    {
-        if (!isGrounded)
+        if (!wasGrounded && isGrounded)
         {
-            isGrounded = true;
             Grounded?.Invoke();
         }
     }
 
-    void OnTriggerExit(Collider other)
+    void OnDrawGizmos()
     {
-        isGrounded = false;
+        Gizmos.color = isGrounded ? Color.green : Color.red;
+        Gizmos.DrawLine(transform.position + Vector3.up * raycastOffset, transform.position + Vector3.up * raycastOffset + Vector3.down * raycastDistance);
     }
 }

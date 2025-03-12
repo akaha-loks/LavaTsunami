@@ -22,6 +22,7 @@ public class Play : MonoBehaviour
         Cursor.visible = true;
         _look.enabled = false;
     }
+
     public void PlayGame()
     {
         Time.timeScale = 1;
@@ -29,4 +30,21 @@ public class Play : MonoBehaviour
         Cursor.visible = false;
         _look.enabled = true;
     }
+
+    #region Choosing Level
+    public void ChooseLvl1()
+    {
+        PlayerPrefs.SetInt("levelCount", 1);
+    }
+
+    public void ChooseLvl2()
+    {
+        PlayerPrefs.SetInt("levelCount", 2);
+    }
+
+    public void ChooseLvl3()
+    {
+        PlayerPrefs.SetInt("levelCount", 3);
+    }
+    #endregion
 }

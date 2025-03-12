@@ -298,7 +298,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4773208539257838}
   - component: {fileID: 114503055206606986}
-  - component: {fileID: 3650304391712329524}
   m_Layer: 0
   m_Name: Ground Check
   m_TagString: Untagged
@@ -334,27 +333,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isGrounded: 1
---- !u!135 &3650304391712329524
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1525720320114448}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
+  raycastOffset: 0.1
+  raycastDistance: 0.32
+  groundLayer:
     serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.28
-  m_Center: {x: 0, y: 0.07, z: 0}
+    m_Bits: 1
 --- !u!1 &1593727746557118
 GameObject:
   m_ObjectHideFlags: 0
@@ -680,7 +663,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpStrength: 2.7
-  _move: {fileID: 114963311885979670}
   groundCheck: {fileID: 114503055206606986}
 --- !u!114 &114762042097486276
 MonoBehaviour:
