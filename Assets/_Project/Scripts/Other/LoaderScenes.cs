@@ -17,4 +17,9 @@ public class LoaderScenes : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+
+    public static void RessetSaves()
+    {
+        PlayerPrefs.DeleteAll();
+    }
 }

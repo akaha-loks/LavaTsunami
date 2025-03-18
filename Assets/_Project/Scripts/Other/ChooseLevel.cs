@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ChooseLevel : MonoBehaviour
 {
@@ -7,11 +6,32 @@ public class ChooseLevel : MonoBehaviour
     [SerializeField] private Transform[] levelPositions;
     [SerializeField] private Play play;
     [SerializeField] private GameObject menuCanvas;
+    [SerializeField] private GameObject[] lines;
 
     private void Awake()
     {
-        levelCount = PlayerPrefs.GetInt("levelCount");
+        levelCount = PlayerPrefs.GetInt("levelCount", 1);
         transform.position = levelPositions[levelCount - 1].position;
+
+        switch (levelCount)
+        {
+            case 1:
+                lines[1].SetActive(false);
+                lines[2].SetActive(false);
+                break;
+            case 2:
+                lines[0].SetActive(false);
+                lines[2].SetActive(false);
+                break;
+            case 3:
+                lines[0].SetActive(false);
+                lines[1].SetActive(false);
+                break;
+        }
+
+        // Загружаем рекорд для текущего уровня
+        float bestTime = PlayerPrefs.GetFloat($"BestTime_Level{levelCount}", float.MaxValue);
+        Finish.SetBestTime(bestTime);
     }
 
     private void Update()

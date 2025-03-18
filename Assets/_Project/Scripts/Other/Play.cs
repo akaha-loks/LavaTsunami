@@ -15,6 +15,15 @@ public class Play : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        Finish.Finished += StopGame;
+    }
+    private void OnDisable()
+    {
+        Finish.Finished -= StopGame;
+    }
+
     public void StopGame()
     {
         Time.timeScale = 0;

@@ -8,6 +8,7 @@ TagManager:
   - MobileJoystick
   - Lava
   - SpawnPoint
+  - Emerald
   layers:
   - Default
   - TransparentFX

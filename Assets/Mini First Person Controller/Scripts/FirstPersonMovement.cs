@@ -17,6 +17,8 @@ public class FirstPersonMovement : MonoBehaviour
     public Animator anim;
     public float timeToEnd = 0.2f;
 
+    private Jump jump;
+
     private bool isHitting = false; // Флаг для отслеживания анимации удара
 
     Rigidbody rigidbody;
@@ -29,6 +31,7 @@ public class FirstPersonMovement : MonoBehaviour
     {
         // Get the rigidbody on this.
         rigidbody = GetComponent<Rigidbody>();
+        jump = GetComponent<Jump>();
     }
 
     void FixedUpdate()
@@ -40,6 +43,11 @@ public class FirstPersonMovement : MonoBehaviour
         if (Input.GetMouseButton(0) && !isHitting)
         {
             StartCoroutine(PlayHitAnimation());
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            LoaderScenes.RessetSaves();
         }
 
         UpdateMovementAnimation();
@@ -89,9 +97,22 @@ public class FirstPersonMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.CompareTag("Emerald"))
+        {
+            jump.jumpStrength = 6;
+        }
+
         if (other.gameObject.CompareTag("Lava"))
         {
             die.DieLava();
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Emerald"))
+        {
+            jump.jumpStrength = 2.7f;
         }
     }
 }
