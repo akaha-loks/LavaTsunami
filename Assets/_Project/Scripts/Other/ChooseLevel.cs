@@ -28,10 +28,6 @@ public class ChooseLevel : MonoBehaviour
                 lines[1].SetActive(false);
                 break;
         }
-
-        // Загружаем рекорд для текущего уровня
-        float bestTime = PlayerPrefs.GetFloat($"BestTime_Level{levelCount}", float.MaxValue);
-        Finish.SetBestTime(bestTime);
     }
 
     private void Update()
