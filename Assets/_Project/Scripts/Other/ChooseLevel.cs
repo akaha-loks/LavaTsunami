@@ -4,8 +4,6 @@ public class ChooseLevel : MonoBehaviour
 {
     public int levelCount = 1;
     [SerializeField] private Transform[] levelPositions;
-    [SerializeField] private Play play;
-    [SerializeField] private GameObject menuCanvas;
     [SerializeField] private GameObject[] lines;
 
     private void Awake()
@@ -27,15 +25,6 @@ public class ChooseLevel : MonoBehaviour
                 lines[0].SetActive(false);
                 lines[1].SetActive(false);
                 break;
-        }
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyUp(KeyCode.Escape))
-        {
-            play.StopGame();
-            menuCanvas.SetActive(true);
         }
     }
 }

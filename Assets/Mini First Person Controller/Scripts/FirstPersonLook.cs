@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class FirstPersonLook : MonoBehaviour
 {
@@ -10,7 +11,6 @@ public class FirstPersonLook : MonoBehaviour
     Vector2 velocity;
     Vector2 frameVelocity;
 
-
     void Reset()
     {
         // Get the character from the FirstPersonMovement in parents.
@@ -20,6 +20,7 @@ public class FirstPersonLook : MonoBehaviour
     void Start()
     {
         // Lock the mouse cursor to the game screen.
+        sensitivity = PlayerPrefs.GetFloat("sensitivity", 3);
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -35,5 +36,21 @@ public class FirstPersonLook : MonoBehaviour
         // Rotate camera up-down and controller left-right from velocity.
         transform.localRotation = Quaternion.AngleAxis(-velocity.y, Vector3.right);
         character.localRotation = Quaternion.AngleAxis(velocity.x, Vector3.up);
+    }
+
+    private void OnEnable()
+    {
+        SensitivitySettings.OnGetSensitivity += GetSensitivity;
+    }
+
+    private void OnDisable()
+    {
+        SensitivitySettings.OnGetSensitivity -= GetSensitivity;
+    }
+
+    private void GetSensitivity()
+    {
+        Debug.Log($"Get {PlayerPrefs.GetFloat("sensitivity", 3)}");
+        sensitivity = PlayerPrefs.GetFloat("sensitivity", 3);
     }
 }
