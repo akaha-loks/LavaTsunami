@@ -1,2 +1,0 @@
-Build path: C:/Users/azapr/OneDrive/Документы/GitHub/LavaTsunami/BuildYG
-Build number: 5
