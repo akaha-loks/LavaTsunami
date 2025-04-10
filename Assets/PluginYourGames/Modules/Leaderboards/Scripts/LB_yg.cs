@@ -73,6 +73,7 @@ namespace YG
                 }
 
                 SetLeaderboard(nameLB, result, extraData);
+                Debug.Log(result);
             }
         }
 
