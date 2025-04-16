@@ -80,7 +80,10 @@ public class Timer : MonoBehaviour
                     PlayerPrefs.SetInt("sec", sec);
                     PlayerPrefs.SetInt("milSec", milSec);
                 }
-                _FinishRecordTimeText.text = "Record: " + PlayerPrefs.GetInt("min", 59).ToString("D2") + " : " + PlayerPrefs.GetInt("sec", 59).ToString("D2") + " : " + PlayerPrefs.GetInt("milSec", 59).ToString("D2");
+                if (PlayerPrefs.GetString("lang") == "en")
+                    _FinishRecordTimeText.text = "Record: " + PlayerPrefs.GetInt("min", 59).ToString("D2") + " : " + PlayerPrefs.GetInt("sec", 59).ToString("D2") + " : " + PlayerPrefs.GetInt("milSec", 59).ToString("D2");
+                else if (PlayerPrefs.GetString("lang") == "ru")
+                    _FinishRecordTimeText.text = "Рекорд: " + PlayerPrefs.GetInt("min", 59).ToString("D2") + " : " + PlayerPrefs.GetInt("sec", 59).ToString("D2") + " : " + PlayerPrefs.GetInt("milSec", 59).ToString("D2");
                 break;
             case 2:
                 if (CanSetNewRecord(PlayerPrefs.GetInt("min2", 59), PlayerPrefs.GetInt("sec2", 59), PlayerPrefs.GetInt("milSec2", 59)))
@@ -89,7 +92,10 @@ public class Timer : MonoBehaviour
                     PlayerPrefs.SetInt("sec2", sec);
                     PlayerPrefs.SetInt("milSec2", milSec);
                 }
-                _FinishRecordTimeText.text = "Record: " + PlayerPrefs.GetInt("min2", 59).ToString("D2") + " : " + PlayerPrefs.GetInt("sec2", 59).ToString("D2") + " : " + PlayerPrefs.GetInt("milSec2", 59).ToString("D2");
+                if (PlayerPrefs.GetString("lang") == "en")
+                    _FinishRecordTimeText.text = "Record: " + PlayerPrefs.GetInt("min2", 59).ToString("D2") + " : " + PlayerPrefs.GetInt("sec2", 59).ToString("D2") + " : " + PlayerPrefs.GetInt("milSec2", 59).ToString("D2");
+                else if (PlayerPrefs.GetString("lang") == "ru")
+                    _FinishRecordTimeText.text = "Рекорд: " + PlayerPrefs.GetInt("min2", 59).ToString("D2") + " : " + PlayerPrefs.GetInt("sec2", 59).ToString("D2") + " : " + PlayerPrefs.GetInt("milSec2", 59).ToString("D2");
                 break;
             case 3:
                 if (CanSetNewRecord(PlayerPrefs.GetInt("min3", 59), PlayerPrefs.GetInt("sec3", 59), PlayerPrefs.GetInt("milSec3", 59)))
@@ -98,11 +104,12 @@ public class Timer : MonoBehaviour
                     PlayerPrefs.SetInt("sec2", sec);
                     PlayerPrefs.SetInt("milSec2", milSec);
                 }
-                _FinishRecordTimeText.text = "Record: " + PlayerPrefs.GetInt("min3", 59).ToString("D2") + " : " + PlayerPrefs.GetInt("sec3", 59).ToString("D2") + " : " + PlayerPrefs.GetInt("milSec3", 59).ToString("D2");
+                if (PlayerPrefs.GetString("lang") == "en")
+                    _FinishRecordTimeText.text = "Record: " + PlayerPrefs.GetInt("min3", 59).ToString("D2") + " : " + PlayerPrefs.GetInt("sec3", 59).ToString("D2") + " : " + PlayerPrefs.GetInt("milSec3", 59).ToString("D2");
+                else if (PlayerPrefs.GetString("lang") == "ru")
+                    _FinishRecordTimeText.text = "Рекорд: " + PlayerPrefs.GetInt("min3", 59).ToString("D2") + " : " + PlayerPrefs.GetInt("sec3", 59).ToString("D2") + " : " + PlayerPrefs.GetInt("milSec3", 59).ToString("D2");
                 break;
-        }
-        
-        
+        }        
     }
 
     private bool CanSetNewRecord(int min, int sec, int milSec)
@@ -136,7 +143,10 @@ public class Timer : MonoBehaviour
 
     private void UpdateFinishTimes()
     {
-        _FinishTimeText.text = "Time: " + min.ToString("D2") + " : " + sec.ToString("D2") + " : " + milSec.ToString("D2");
+        if (PlayerPrefs.GetString("lang") == "en")
+            _FinishTimeText.text = "Time: " + min.ToString("D2") + " : " + sec.ToString("D2") + " : " + milSec.ToString("D2");
+        else if (PlayerPrefs.GetString("lang") == "ru")
+            _FinishTimeText.text = "Время: " + min.ToString("D2") + " : " + sec.ToString("D2") + " : " + milSec.ToString("D2");
         NewRecordTime();
     }
 

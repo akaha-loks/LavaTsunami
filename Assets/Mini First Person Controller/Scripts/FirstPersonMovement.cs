@@ -115,4 +115,9 @@ public class FirstPersonMovement : MonoBehaviour
             jump.jumpStrength = 2.7f;
         }
     }
+
+    public void ImpulsToBack(float range)
+    {
+        transform.position += Vector3.back * range;
+    }
 }
