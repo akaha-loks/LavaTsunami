@@ -60,7 +60,7 @@
         streamingAssetsUrl: "StreamingAssets",
             companyName: "Akaha Group",
             productName: "LavaTsunami",
-            productVersion: "0.0.0.1"
+            productVersion: "0.0.2.0"
         };
 
         const container = document.querySelector("#unity-container");
@@ -217,6 +217,8 @@
                 ysdk = await YaGames.init();
 
                 // Additional init0 modules
+InterAdvShow();
+
 await RequestingEnvironmentData();
 LogStyledMessage('Init EnvirData ysdk');
 
@@ -251,10 +253,15 @@ LogStyledMessage('Init Leaderboards ysdk');
             initGame = true;
 
             // Additional start modules
+setTimeout(function () {
+    if (nowFullAdOpen == true)
+        YG2Instance('OpenInterAdv');
+}, 100);
+
         }
 
         // Additional script modules
-LogStyledMessage('PluginYG2 v2.0032  build: 3');
+LogStyledMessage('PluginYG2 v2.0032  build: 20');
 
 let leaderboards = null;
 
@@ -372,6 +379,48 @@ function EntriesLB(res, photoSize) {
     };
 
     return jsonPlayers;
+}
+
+
+let nowFullAdOpen = false;
+
+function InterAdvShow() {
+    try {
+        if (nowFullAdOpen !== true && ysdk !== null) {
+            ysdk.adv.showFullscreenAdv(
+                {
+                    callbacks: {
+                        onOpen: () => {
+                            LogStyledMessage('Open Interstitial Adv');
+                            nowFullAdOpen = true;
+                            if (initGame === true) {
+                                YG2Instance('OpenInterAdv');
+                            }
+                        },
+                        onClose: (wasShown) => {
+                            nowFullAdOpen = false;
+                            if (initGame === true) {
+                                if (wasShown) {
+                                    YG2Instance('CloseInterAdv', 'true');
+                                }
+                                else {
+                                    YG2Instance('CloseInterAdv', 'false');
+                                }
+                            }
+                            FocusGame();
+                        },
+                        onError: (error) => {
+                            console.error('Error Interstitial Adv', error);
+                            YG2Instance('ErrorInterAdv');
+                            FocusGame();
+                        }
+                    }
+                });
+        }
+    }
+    catch (e) {
+        console.error('CRASH Interstitial Adv Show: ', e.message);
+    }
 }
 
 var environmentData = NO_DATA;

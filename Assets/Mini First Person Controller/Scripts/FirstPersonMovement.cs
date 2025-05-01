@@ -104,7 +104,8 @@ public class FirstPersonMovement : MonoBehaviour
 
         if (other.gameObject.CompareTag("Lava"))
         {
-            die.DieLava();
+            die.Burn();
+            Invoke("Die", 1);
         }
     }
 
@@ -119,5 +120,10 @@ public class FirstPersonMovement : MonoBehaviour
     public void ImpulsToBack(float range)
     {
         transform.position += Vector3.back * range;
+    }
+
+    private void Die()
+    {
+        die.DieLava();
     }
 }

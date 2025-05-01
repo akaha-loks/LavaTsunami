@@ -11,7 +11,7 @@ public class SteveTutor : MonoBehaviour
             texts[0].SetActive(true);
             texts[1].SetActive(false);
         }
-        else if (PlayerPrefs.GetString("lang") == "ru")
+        else
         {
             texts[0].SetActive(false);
             texts[1].SetActive(true);

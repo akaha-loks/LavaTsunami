@@ -8,7 +8,7 @@ public class Timer : MonoBehaviour
     private int sec;
     private int milSec;
 
-    [SerializeField] private float totalTimeSec;
+    [SerializeField] private float totalTimeSec = 3540;
 
     [SerializeField] private int delta;
     [SerializeField] private TextMeshProUGUI _TimerText;
@@ -19,6 +19,15 @@ public class Timer : MonoBehaviour
     private void Start()
     {
         StartCoroutine(ITimerCount());
+    }
+
+    private void OnEnable()
+    {
+        Finish.Finished += RecordTime;
+    }
+    private void OnDisable()
+    {
+        Finish.Finished -= RecordTime;
     }
 
     private IEnumerator ITimerCount()
@@ -44,21 +53,6 @@ public class Timer : MonoBehaviour
     private void RecordTime()
     {
         StopCoroutine(ITimerCount());
-        switch (PlayerPrefs.GetInt("levelCount", 1))
-        {
-            case 1:
-                totalTimeSec = TotalSec();
-                PlayerPrefs.SetFloat("totalSec1", totalTimeSec);
-                break;
-            case 2:
-                totalTimeSec = TotalSec();
-                PlayerPrefs.SetFloat("totalSec2", totalTimeSec);
-                break;
-            case 3:
-                totalTimeSec = TotalSec();
-                PlayerPrefs.SetFloat("totalSec3", totalTimeSec);
-                break;
-        }
 
         UpdateFinishTimes();
         Debug.Log("FINISH");
@@ -79,6 +73,10 @@ public class Timer : MonoBehaviour
                     PlayerPrefs.SetInt("min", min);
                     PlayerPrefs.SetInt("sec", sec);
                     PlayerPrefs.SetInt("milSec", milSec);
+
+                    totalTimeSec = TotalSec();
+                    PlayerPrefs.SetFloat("totalSec1", totalTimeSec);
+                    Debug.Log("Saved");
                 }
                 if (PlayerPrefs.GetString("lang") == "en")
                     _FinishRecordTimeText.text = "Record: " + PlayerPrefs.GetInt("min", 59).ToString("D2") + " : " + PlayerPrefs.GetInt("sec", 59).ToString("D2") + " : " + PlayerPrefs.GetInt("milSec", 59).ToString("D2");
@@ -91,6 +89,10 @@ public class Timer : MonoBehaviour
                     PlayerPrefs.SetInt("min2", min);
                     PlayerPrefs.SetInt("sec2", sec);
                     PlayerPrefs.SetInt("milSec2", milSec);
+
+                    totalTimeSec = TotalSec();
+                    PlayerPrefs.SetFloat("totalSec2", totalTimeSec);
+                    Debug.Log("Saved2");
                 }
                 if (PlayerPrefs.GetString("lang") == "en")
                     _FinishRecordTimeText.text = "Record: " + PlayerPrefs.GetInt("min2", 59).ToString("D2") + " : " + PlayerPrefs.GetInt("sec2", 59).ToString("D2") + " : " + PlayerPrefs.GetInt("milSec2", 59).ToString("D2");
@@ -100,9 +102,13 @@ public class Timer : MonoBehaviour
             case 3:
                 if (CanSetNewRecord(PlayerPrefs.GetInt("min3", 59), PlayerPrefs.GetInt("sec3", 59), PlayerPrefs.GetInt("milSec3", 59)))
                 {
-                    PlayerPrefs.SetInt("min2", min);
-                    PlayerPrefs.SetInt("sec2", sec);
-                    PlayerPrefs.SetInt("milSec2", milSec);
+                    PlayerPrefs.SetInt("min3", min);
+                    PlayerPrefs.SetInt("sec3", sec);
+                    PlayerPrefs.SetInt("milSec3", milSec);
+
+                    totalTimeSec = TotalSec();
+                    PlayerPrefs.SetFloat("totalSec3", totalTimeSec);
+                    Debug.Log("Saved3");
                 }
                 if (PlayerPrefs.GetString("lang") == "en")
                     _FinishRecordTimeText.text = "Record: " + PlayerPrefs.GetInt("min3", 59).ToString("D2") + " : " + PlayerPrefs.GetInt("sec3", 59).ToString("D2") + " : " + PlayerPrefs.GetInt("milSec3", 59).ToString("D2");
@@ -112,11 +118,11 @@ public class Timer : MonoBehaviour
         }        
     }
 
-    private bool CanSetNewRecord(int min, int sec, int milSec)
+    private bool CanSetNewRecord(int minCash, int secCash, int milSecCash)
     {
-        int savedMin = min;
-        int savedSec = sec;
-        int savedMilSec = milSec;
+        int savedMin = minCash;
+        int savedSec = secCash;
+        int savedMilSec = milSecCash;
 
         if (min < savedMin)
         {
@@ -140,22 +146,12 @@ public class Timer : MonoBehaviour
         return false;
     }
 
-
     private void UpdateFinishTimes()
     {
+        NewRecordTime();
         if (PlayerPrefs.GetString("lang") == "en")
             _FinishTimeText.text = "Time: " + min.ToString("D2") + " : " + sec.ToString("D2") + " : " + milSec.ToString("D2");
         else if (PlayerPrefs.GetString("lang") == "ru")
-            _FinishTimeText.text = "Время: " + min.ToString("D2") + " : " + sec.ToString("D2") + " : " + milSec.ToString("D2");
-        NewRecordTime();
-    }
-
-    private void OnEnable()
-    {
-        Finish.Finished += RecordTime;
-    }
-    private void OnDisable()
-    {
-        Finish.Finished -= RecordTime;
+            _FinishTimeText.text = "Время: " + min.ToString("D2") + " : " + sec.ToString("D2") + " : " + milSec.ToString("D2"); 
     }
 }

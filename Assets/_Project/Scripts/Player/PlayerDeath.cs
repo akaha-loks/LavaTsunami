@@ -4,6 +4,9 @@ public class PlayerDeath : MonoBehaviour
 {
     [SerializeField] private bool _isCanDie;
     [SerializeField] private SpawnPoint _spawnPoint;
+    [SerializeField] private GameObject _restartUI;
+    [SerializeField] private Play _gameManager;
+    [SerializeField] private GameObject _fire;
 
     private void Update()
     {
@@ -24,6 +27,14 @@ public class PlayerDeath : MonoBehaviour
     public void DieLava()
     {
         if (_isCanDie)
-            LoaderScenes.RestartScene();
+        {
+            _restartUI.SetActive(true);
+            _gameManager.StopGame();
+        }
+    }
+
+    public void Burn()
+    {
+        _fire.SetActive(true);
     }
 }
